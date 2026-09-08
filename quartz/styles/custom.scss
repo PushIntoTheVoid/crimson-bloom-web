@@ -1,3 +1,103 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+.page {
+  max-width: 100% !important;
+  padding: 0 4vw !important;
+  margin: 0 !important;
+}
+
+@media all and ($desktop) {
+  .page > #quartz-body {
+    // Modify grid to give the center column all the remaining space, like Notion
+    grid-template-columns: $sidePanelWidth 1fr $sidePanelWidth !important;
+  }
+}
+
+// Add breathing room to the main content area so it doesn't touch the sidebars
+.center {
+  padding: 0 4rem;
+  
+  @media all and ($mobile) {
+    padding: 0 1rem;
+  }
+}
+
+
+// === GLASSMORPHISM: CYBER-PURPLE THEME ===
+@mixin glassmorphism {
+  // Use a soft, translucent gradient background for depth
+  background: linear-gradient(145deg, rgba(30, 25, 45, 0.45) 0%, rgba(20, 15, 30, 0.25) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  // A subtle purple border + an inset white highlight for the "glass edge" effect
+  border: 1px solid rgba(139, 92, 246, 0.25) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.05) !important;
+}
+
+// Sidebars & Interactive Elements
+.sidebar.left, .sidebar.right {
+  @include glassmorphism;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.search-button, .search-modal > .modal-content {
+  @include glassmorphism;
+  border-radius: 8px;
+}
+
+.popover > .popover-inner {
+  @include glassmorphism;
+  border-radius: 12px;
+}
+
+// Navigation hover (Crimson Bloom)
+.sidebar .explorer ul li a:hover {
+  color: var(--secondary) !important; 
+  transition: color 0.3s ease;
+}
+
+// === FIX MERMAID DIAGRAMS (GLASSMORPHISM) ===
+pre:has(> code.mermaid),
+.mermaid {
+  @include glassmorphism;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+pre > code.mermaid svg,
+.mermaid svg {
+  max-width: 100% !important;
+  height: auto !important; // Fixes aspect ratio deformation
+  font-family: var(--codeFont) !important; // Match aesthetic
+}
+
+/* Override mermaid inline styles for the new theme */
+.mermaid svg {
+  .node rect, .node circle, .node ellipse, .node polygon {
+    fill: var(--light) !important;
+    stroke: var(--secondary) !important;
+    stroke-width: 2px !important;
+  }
+  .edgePath .path {
+    stroke: var(--gray) !important;
+  }
+  .edgeLabel {
+    background-color: var(--light) !important;
+    color: var(--dark) !important;
+  }
+  .label, .nodeLabel {
+    color: var(--dark) !important;
+    fill: var(--dark) !important;
+  }
+  .cluster rect {
+    fill: transparent !important;
+    stroke: var(--gray) !important;
+  }
+}

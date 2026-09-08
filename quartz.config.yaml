@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: en-US
-  baseUrl: quartz.jzhao.xyz
+  baseUrl: crimson-bloom-web.github.io
   ignorePatterns:
     - private
     - templates
@@ -16,30 +16,30 @@ configuration:
     fontOrigin: googleFonts
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
-      code: IBM Plex Mono
+      header: Inter
+      body: Inter
+      code: JetBrains Mono
     colors:
       lightMode:
-        light: "#faf8f8"
-        lightgray: "#e5e5e5"
-        gray: "#b8b8b8"
-        darkgray: "#4e4e4e"
-        dark: "#2b2b2b"
-        secondary: "#284b63"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#fff23688"
+        light: "#f5f3fa"
+        lightgray: "#e6e2f0"
+        gray: "#8e8b99"
+        darkgray: "#3a364d"
+        dark: "#1c1728"
+        secondary: "#7c3aed"
+        tertiary: "#2dd4bf"
+        highlight: "rgba(124, 58, 237, 0.15)"
+        textHighlight: "rgba(124, 58, 237, 0.4)"
       darkMode:
-        light: "#161618"
-        lightgray: "#393639"
-        gray: "#646464"
-        darkgray: "#d4d4d4"
-        dark: "#ebebec"
-        secondary: "#7b97aa"
-        tertiary: "#84a59d"
-        highlight: rgba(143, 159, 169, 0.15)
-        textHighlight: "#b3aa0288"
+        light: "#0f0c1b"
+        lightgray: "#1d192b"
+        gray: "#9a94aa"
+        darkgray: "#d1cde0"
+        dark: "#ffffff"
+        secondary: "#8b5cf6"
+        tertiary: "#2dd4bf"
+        highlight: "rgba(139, 92, 246, 0.2)"
+        textHighlight: "rgba(45, 212, 191, 0.4)"
 plugins:
   - source: "@quartz-community/created-modified-date"
     enabled: true
@@ -61,7 +61,17 @@ plugins:
   - source: "@quartz-community/obsidian-flavored-markdown"
     enabled: true
     options:
+      comments: true
+      highlight: true
+      wikilinks: true
+      callouts: true
+      mermaid: true
+      parseTags: true
+      parseArrows: true
+      parseBlockReferences: true
       enableInHtmlEmbed: false
+      enableYouTubeEmbed: true
+      enableVideoEmbed: true
       enableCheckbox: true
     order: 30
   - source: "@quartz-community/github-flavored-markdown"
@@ -90,7 +100,7 @@ plugins:
     enabled: false
     order: 85
   - source: "@quartz-community/hard-line-breaks"
-    enabled: false
+    enabled: true
     order: 90
   - source: "@quartz-community/ox-hugo"
     enabled: false
@@ -103,12 +113,30 @@ plugins:
   - source: "@quartz-themes/core"
     enabled: false
     options:
-      theme: tokyo-night
+      theme: its-theme
+      variation: ttrpg-dnd
       mode: both
   - source: "@quartz-community/remove-draft"
     enabled: true
   - source: "@quartz-community/explicit-publish"
     enabled: false
+  - source: "@quartz-community/unlisted-pages"
+    enabled: true
+    options: {}
+    order: 45
+  - source: "@quartz-community/encrypted-pages"
+    enabled: true
+    options:
+      iterations: 600000
+      passwordField: password
+      unlistWhenEncrypted: false
+      outputPath: static/encryptedContentIndex.json
+  - source: "@quartz-community/stacked-pages"
+    enabled: false
+    layout:
+      position: afterBody
+      priority: 50
+      display: all
   - source: "@quartz-community/alias-redirects"
     enabled: true
   - source: "@quartz-community/content-index"
@@ -239,24 +267,17 @@ plugins:
       position: beforeBody
       priority: 15
       display: all
-  - source: "@quartz-community/unlisted-pages"
-    enabled: true
-    options: {}
-    order: 45
-  - source: "@quartz-community/encrypted-pages"
+  - source: github:Requiae/quartz-leaflet-bases-plugin
     enabled: true
     options:
-      iterations: 600000
-      passwordField: password
-      unlistWhenEncrypted: false
-      outputPath: static/encryptedContentIndex.json
-    order: 900
-  - source: "@quartz-community/stacked-pages"
-    enabled: false
-    layout:
-      position: afterBody
-      priority: 50
-      display: all
+      enableCopyTool: false
+  - source: "@quartz-community/obsidian-plugin-excalidraw"
+    enabled: true
+    options:
+      enableInteraction: true
+      darkMode: auto
+      exportPadding: 20
+    order: 50
 layout:
   groups:
     toolbar:
